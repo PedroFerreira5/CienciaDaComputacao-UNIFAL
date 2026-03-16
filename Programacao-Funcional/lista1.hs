@@ -48,4 +48,13 @@ invertaux n aux = invertaux (n `div`10) (aux * 10 + (n `mod`10))
                           -- guarda o 12 // pega o 3 faz *10 = 30 / faz mod do 12, 12 vira 32 e mod do 1 (321), para em 0 (NULL) 
 
 
--- 5 
+-- 5 Basicamente fazer x² chegar em x^4
+square :: Int -> Int
+square x = x * x
+
+fourPower :: Int -> Int
+fourPower x = square (square x)
+
+-- teste x^8
+eightPower :: Int -> Int
+eightPower x = square (fourPower x)
