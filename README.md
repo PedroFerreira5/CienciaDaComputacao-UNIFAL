@@ -16,6 +16,8 @@ O objetivo deste repositório é centralizar e organizar os códigos produzidos 
 * 📁 [AEDS-II-Pratica](./AEDS-II-Pratica)
 * 📁 [Programacao-Funcional](./Programacao-Funcional)
 * 📁 [Programacao-Logica](./Programacao-Logica)
+* 📁 [Programacao-Orientada-Objetos](./ProgramacaoOrientadaObjetos)
+
 
 
 ### 🔹 Fundamentos da Computação
