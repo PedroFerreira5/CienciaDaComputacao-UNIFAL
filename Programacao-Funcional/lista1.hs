@@ -36,3 +36,16 @@ multi x y
     |y > 0 = soma x (multi x (y-1)) -- para multi (x*y) some ele pelo resultado de x*(y-1)
              -- x        y
              -- multi x y soma x com x ate que y-1 seja y == 0
+
+-- 4 Inverta os digitos
+
+invertInt :: Int ->  Int 
+invertInt n = invertaux n 0
+
+invertaux :: Int -> Int -> Int -- 123 mod 10 = 3 && 123 div 10 = 12
+invertaux 0 aux = aux -- ponto de parada
+invertaux n aux = invertaux (n `div`10) (aux * 10 + (n `mod`10))
+                          -- guarda o 12 // pega o 3 faz *10 = 30 / faz mod do 12, 12 vira 32 e mod do 1 (321), para em 0 (NULL) 
+
+
+-- 5 
