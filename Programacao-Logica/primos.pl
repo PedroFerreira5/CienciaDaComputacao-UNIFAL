@@ -39,8 +39,8 @@ casado(pedro, regina).
 casado(alberto, jasmine).
 
 irmao(X, Y) :-
-    genitor(G, X),
-    genitor(G, Y),
+    genitor(P, X), genitor(P, Y),
+    genitor(M, X), genitor(M, Y),
     X \== Y.
 
 % 1. Criamos uma regra auxiliar: "P é genitor de X se P é pai OU P é mãe"
