@@ -1,3 +1,4 @@
+% ?- consult('c:/Users/pedro/Documents/Faculdade/CienciaDaComputacao-UNIFAL/Programacao-Logica/primos.pl').
 homem(joao).
 homem(alberto).
 homem(lucas).
