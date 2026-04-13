@@ -33,12 +33,6 @@ mae(julia, jasmine).
 mae(jasmine, eduardo).
 mae(jasmine, alice).
 
-casado(joao, maria).
-casado(lucas, claudia).
-casado(julio, julia).
-casado(pedro, regina).
-casado(alberto, jasmine).
-
 irmao(X, Y) :-
     genitor(P, X), genitor(P, Y),
     genitor(M, X), genitor(M, Y),
