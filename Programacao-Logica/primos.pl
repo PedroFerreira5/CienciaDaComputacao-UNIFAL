@@ -33,14 +33,14 @@ mae(julia, jasmine).
 mae(jasmine, eduardo).
 mae(jasmine, alice).
 
+% 1. Criamos uma regra auxiliar: "P é genitor de X se P é pai OU P é mãe"
+genitor(P, X) :- pai(P, X).
+genitor(P, X) :- mae(P, X).
+
 irmao(X, Y) :-
     genitor(P, X), genitor(P, Y),
     genitor(M, X), genitor(M, Y),
     X \== Y.
-
-% 1. Criamos uma regra auxiliar: "P é genitor de X se P é pai OU P é mãe"
-genitor(P, X) :- pai(P, X).
-genitor(P, X) :- mae(P, X).
 
 % 2. Agora a regra de primo fica completa e simples:
 primo(X, Y) :-

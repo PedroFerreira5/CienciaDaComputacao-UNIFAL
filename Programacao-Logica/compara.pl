@@ -2,4 +2,5 @@
 compara([], []). %lista vazia
 
 % Passo Recursivo: Se as duas listas têm pelo menos um elemento,
-compara([_|Resto1], [_|Resto2]) :- compara(Resto1, Resto2).
+compara([_|Resto1], [_|Resto2]) :- 
+    compara(Resto1, Resto2).
