@@ -42,7 +42,6 @@ irmao(X, Y) :-
     genitor(M, X), genitor(M, Y),
     X \== Y.
 
-% 2. Agora a regra de primo fica completa e simples:
 primo(X, Y) :-
     genitor(G1, X),    
     genitor(G2, Y),   
