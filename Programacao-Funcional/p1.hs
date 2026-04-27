@@ -18,5 +18,4 @@ f2 _ [] = []
 
 f5 :: String -> String -> [Bool]
 f5 _ _ = []
-f5 
 
