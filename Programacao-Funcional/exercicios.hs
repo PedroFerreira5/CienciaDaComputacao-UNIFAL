@@ -83,7 +83,7 @@ myLast (_:xs) = myLast xs --descarta xs ate ter só x ai entra em Just x!
 
 myInit :: [a] -> [a]
 myInit [] = []
-myInit [a] = []
+myInit [_] = []
 myInit (x:xs) = x : myInit xs  
 
 
