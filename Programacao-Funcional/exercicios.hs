@@ -55,10 +55,6 @@ reverseInnerLists (x:xs) = reverseList x : reverseInnerLists xs
 --removePenultimateOccurrence :: Int -> [Int] -> [Int]
 -- ????
 
-
-
-
-
 -------------------------------------------------------------
 {- Exercícios
      Implementar as funções: 
