@@ -13,4 +13,10 @@ pertence2 x (y:ys)
 --
 
 f2 :: Int -> [[Int]] -> [(Bool, [Int])]
-f2 _ [] = [(False, [])]
+f2 _ [] = []
+
+
+f5 :: String -> String -> [Bool]
+f5 _ _ = []
+f5 
+
