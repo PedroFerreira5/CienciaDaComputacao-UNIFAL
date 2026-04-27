@@ -48,6 +48,8 @@ primo(X, Y) :-
     irmao(G1, G2),    
     X \== Y.         
 
+tio(X,Y) :-
+    
 
 filho(X, P, M) :- 
     pai(P, X), 
