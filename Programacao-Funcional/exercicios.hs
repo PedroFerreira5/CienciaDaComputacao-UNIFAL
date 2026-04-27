@@ -1,3 +1,4 @@
+import System.Win32 (xBUTTON1)
 {-Assunto: Litas
   Os conceitos introdutórios sobre listas foram apresentados em sala.
   Agora, considerando os casos mais simples, com apenas listas de inteiros,
@@ -46,7 +47,15 @@ reverseList (x:xs) = reverseList xs ++ [x] -- [x] para concatenar lista, xs ja �
 
 {- 07 inverte elementos das listas internas -}
 
+reverseInnerLists :: [[Int]] -> [[Int]]
+reverseInnerLists [] = []
+reverseInnerLists (x:xs) = reverseList x : reverseInnerLists xs
+
 {- 08 função que exclui a penúltima ocorrência de um número na lista-}
+--removePenultimateOccurrence :: Int -> [Int] -> [Int]
+-- ????
+
+
 
 
 
@@ -59,6 +68,25 @@ reverseList (x:xs) = reverseList xs ++ [x] -- [x] para concatenar lista, xs ja �
        myInit que recebe uma lista x e retorna a lista x sem o último elemento
 -}       
  
+myHead :: [a] -> Maybe a
+myHead [] = Nothing
+myHead (x:_)= Just x
+
+myTail :: [a] -> [a]
+myTail [] = []
+myTail(a:b)= b
+
+myLast :: [a] -> Maybe a
+myLast []     = Nothing
+myLast [x]    = Just x
+myLast (_:xs) = myLast xs --descarta xs ate ter só x ai entra em Just x!
+
+myInit :: [a] -> [a]
+myInit [] = []
+myInit [a] = []
+myInit (x:xs) = x : myInit xs  
+
+
 {- função que gera uma lista de booleanos relativa à comparação entre os elementos e um parâmetro z -} 
 gBool :: [Int]->Int-> [Bool]
 gBool [] _ = []
