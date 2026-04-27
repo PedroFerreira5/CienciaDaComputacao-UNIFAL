@@ -12,32 +12,42 @@ sumList [] = 0
 sumList (x:xs) = x + sumList xs
 
 {- 02-localiza elemento em lista -}
-searchList :: Int -> [Int] -> Bool
+searchList :: Int -> [Int] -> Bool -- Parametros 1º procurado, depois a lista
 searchList _ [] = False
 searchList y (x:xs)
   | x /= y    = searchList y xs
   | otherwise = True
   
-
 {-03 remove todas ocorrências de y em uma lista -}
 deleteList::Int->[Int]->[Int]
-deleteList _ _ = []
+deleteList _ [] = []
+deleteList y (a:b)
+  |a == y    = deleteList y b
+  |otherwise = a : deleteList y b
 
 {-04 informa o tamanho de uma lista -}
 lenghtList::[Int]->Int
-lenghtList _ = 0
+lenghtList [] = 0
+lenghtList (x:xs) = 1 + lenghtList xs
+
 
 {-05 conta a ocorrência de um Int em [Int] -}
 contList::Int->[Int]->Int
-contList _ _ = 0
-
+contList _ [] = 0
+contList x (a:b)
+  |a == x     = 1 + contList x b -- sempre passar o parametro na recursividade (esqueci)
+  |otherwise  = contList x b 
+   
 {- 06 inverte a lista -}
 reverseList:: [Int]->[Int]
-reverseList _ = []
+reverseList [] = []
+reverseList (x:xs) = reverseList xs ++ [x] -- [x] para concatenar lista, xs ja é [Int]
+-- X sempre será elemento, e XS lista de algo nesse exemplo [Int]
 
 {- 07 inverte elementos das listas internas -}
 
 {- 08 função que exclui a penúltima ocorrência de um número na lista-}
+
 
 
 -------------------------------------------------------------
