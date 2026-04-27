@@ -9,10 +9,15 @@
 {- 01 função que soma os elementos de uma lista -}
 sumList::[Int]->Int
 sumList [] = 0
+sumList (x:xs) = x + sumList xs
 
 {- 02-localiza elemento em lista -}
-searchList::Int->[Int]->Bool
-searchList _ _ = False
+searchList :: Int -> [Int] -> Bool
+searchList _ [] = False
+searchList y (x:xs)
+  | x /= y    = searchList y xs
+  | otherwise = True
+  
 
 {-03 remove todas ocorrências de y em uma lista -}
 deleteList::Int->[Int]->[Int]

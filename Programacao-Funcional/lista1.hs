@@ -1,4 +1,3 @@
-import System.Win32 (COORD(yPos))
 -- 1 (a)
 f1 :: Float -> Float 
 f1 x  
