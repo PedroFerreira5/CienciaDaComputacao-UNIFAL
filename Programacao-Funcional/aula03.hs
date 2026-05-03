@@ -6,7 +6,7 @@ periodo = 7
 maxi :: Int -> Int -> Int
 maxi m n
    |m >= n = m
-   |otherwise	= n
+   |otherwise = n
 
 
 -- tabela de vendas
