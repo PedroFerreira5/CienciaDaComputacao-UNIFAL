@@ -64,13 +64,13 @@ reverseInnerLists (x:xs) = reverseList x : reverseInnerLists xs
        myInit que recebe uma lista x e retorna a lista x sem o último elemento
 -}       
  
-myHead :: [a] -> Maybe a
-myHead [] = Nothing
-myHead (x:_)= Just x
+head :: [a] -> a
+head [] = error "lista vazia"
+head (x:_) = x
 
-myTail :: [a] -> [a]
-myTail [] = []
-myTail(a:b)= b
+tail :: [a] -> [a]
+tail (a:b) = b
+tail [] = []
 
 myLast :: [a] -> Maybe a
 myLast []     = Nothing
