@@ -1,6 +1,7 @@
 {- HLINT ignore "Use foldr" -}
+{- HLINT ignore "Use map" -}
 import Prelude hiding (head, tail)
-import System.Win32 (xBUTTON1)
+import System.Win32 (xBUTTON1, aCCESS_SYSTEM_SECURITY)
 {- Assunto: listas e tuplas -}
 
 periodo::Int
@@ -33,7 +34,7 @@ listaVendas x = vendas x : listaVendas (x-1)
 
 f2L::Int->[[Int]]
 f2L 0 = []
-f2L x = [x,vendas x]:f2L (x-1)  
+f2L x = [x,vendas x]:f2L (x-1)
 ----------------------------------------------------------
 {- 03 função que ordena uma lista de inteiros -}
 
@@ -69,6 +70,9 @@ comparaHead _ [] = False
 ---------------------------------------------------------------------------
 {- 05 função que ordena as listas internas de [[Int]] e, em seguida, ordena a [[Int]] -}
 --ordenaLILE::[[Int]] ->[[Int]]
+
+
+
 -----------  tuplas --------------------------------------------------------
 {- 06 função que gera uma lista de tuplas com dia e venda -}
 f6T :: Int-> [(Int, Int)]
@@ -76,20 +80,26 @@ f6T 0 = []
 f6T x = (x,vendas x):f6T (x-1)
 
 {- 07 função que gera o total de vendas-}
---totalVendasT::[(Int, Int)] -> Int
+totalVendasT::[(Int, Int)] -> Int
+totalVendasT [] = 0
+totalVendasT (x:xs) = snd x + totalVendasT xs 
 
-
+-- 
+totalVendasT2::[(Int, Int)] -> Int
+totalVendasT2 [] = 0
+totalVendasT2 ((_,xs):b) = xs + totalVendasT2 b 
 
 {- 08 função que retorna a maior venda -}
- 
---maiorVendasT8a::Int-> [(Int, Int)] -> Int 
-  
+maiorVendasT8a::Int-> [(Int, Int)] -> Int 
+maiorVendasT8a _ []     = 0
+maiorVendasT8a int (x:xs) = maxi (snd x) (maiorVendasT8a int xs)
+
 {- 08-b como implementar com apenas os parâmetros? -}
-maiorVendaT8b::[(Int, Int)] -> Int    
+maiorVendaT8b::[(Int, Int)] -> Int
 maiorVendaT8b [] = 0
 maiorVendaT8b ((a,b):c) = maxi b (maiorVendaT8b c)
 
-maiorVendaT8c::[(Int, Int)] -> Int    
+maiorVendaT8c::[(Int, Int)] -> Int
 maiorVendaT8c [] = 0
 maiorVendaT8c (a:c) = maxi (snd a) (maiorVendaT8c c)
 
@@ -104,7 +114,26 @@ head (x:_) = x
 maiorVendaT8d :: [(Int, Int)] -> Int
 maiorVendaT8d [] = 0
 maiorVendaT8d c = maxi (snd (head c)) (maiorVendaT8d (tail c))
+
 {- 09 função que retorna os dias das maiores vendas -}
 
+diaMaiorVendas :: [(Int, Int)] -> [Int]
+diaMaiorVendas [] = []
+diaMaiorVendas l = diasMaiorVendas l (maiorVendaT8b l)
+
+diasMaiorVendas :: [(Int, Int)] -> Int -> [Int]
+diasMaiorVendas [] _ = []
+diasMaiorVendas ((d,s):xs) maior
+   | s == maior = d : diasMaiorVendas xs maior
+   | otherwise = diasMaiorVendas xs maior
 
 
+diaMaiorVendas2 :: [(Int, Int)] -> [Int]
+diaMaiorVendas2 [] = []
+diaMaiorVendas2  l = [ d | (d,s) <- l, s == maiorVendaT8b l ] {- l = lista de tuplas
+                                                               (d,s) <- l = percorrer lista
+                                                               d = valor resultado
+                                                               s == maiorVendaT8b condição só entra se venda s for > venda da l
+
+
+-}

@@ -4,10 +4,14 @@ import Data.Char
 
 ------------------------------------------------------
 {- 01 função que separa [(Int,Char)] em ([Int],[Char]) -}
---myUnzip :: [(Int,Char)]->([Int],[Char])
+myUnzip :: [(Int, Char)] -> ([Int], [Char])
+myUnzip [] = ([], [])
+myUnzip ((n, c):xs) = (n : ns, c : cs)
+  where (ns, cs) = myUnzip xs
 
 {- 02 versão em uma única função -}
---myUnzipU :: [(Int,Char)]->([Int],[Char])
+myUnzipU :: [(Int, Char)] -> ([Int], [Char])
+myUnzipU = foldr (\(n, c) (ns, cs) -> (n:ns, c:cs)) ([], [])
 
 ------------------------------------------------------------
 {- 03 função que junta duas listas em lista de duplas -}
