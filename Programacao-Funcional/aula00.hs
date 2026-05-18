@@ -1,3 +1,4 @@
+{- HLINT ignore "Eta reduce" -}
 import Data.Char
 
 type Dia = Int
@@ -22,7 +23,7 @@ allEqual m n p = (m==n) && (n==p)
 maxi :: Int -> Int -> Int
 maxi m n
    |m >= n = m
-   |otherwise	= n
+   |otherwise = n
 
 
 f :: Dia -> Venda
