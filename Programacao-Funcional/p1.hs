@@ -6,11 +6,7 @@ pertence x (y:ys)
  
 pertence2 :: Int -> [Int] -> Bool
 pertence2 _ [] = False
-pertence2 x (y:ys)
-  | x == y    = True
-  | otherwise = pertence2 x ys
-
---
+pertence2 x (y:ys) = x == y || pertence2 x ys
 
 f2 :: Int -> [[Int]] -> [(Bool, [Int])]
 f2 _ [] = []

@@ -134,6 +134,5 @@ diaMaiorVendas2  l = [ d | (d,s) <- l, s == maiorVendaT8b l ] {- l = lista de tu
                                                                (d,s) <- l = percorrer lista
                                                                d = valor resultado
                                                                s == maiorVendaT8b condição só entra se venda s for > venda da l
-
-
 -}
+

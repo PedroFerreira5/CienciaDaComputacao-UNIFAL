@@ -1,3 +1,4 @@
+{- HLINT ignore "Use foldr" -}
 import System.Win32 (xBUTTON1)
 {-Assunto: Litas
   Os conceitos introdutórios sobre listas foram apresentados em sala.
@@ -6,7 +7,7 @@ import System.Win32 (xBUTTON1)
     ++ (concatena listas)
      : (insere um elemento na lista)
 -}
-     
+
 {- 01 função que soma os elementos de uma lista -}
 sumList::[Int]->Int
 sumList [] = 0
@@ -18,7 +19,7 @@ searchList _ [] = False
 searchList y (x:xs)
   | x /= y    = searchList y xs
   | otherwise = True
-  
+
 {-03 remove todas ocorrências de y em uma lista -}
 deleteList::Int->[Int]->[Int]
 deleteList _ [] = []
@@ -37,8 +38,8 @@ contList::Int->[Int]->Int
 contList _ [] = 0
 contList x (a:b)
   |a == x     = 1 + contList x b -- sempre passar o parametro na recursividade (esqueci)
-  |otherwise  = contList x b 
-   
+  |otherwise  = contList x b
+
 {- 06 inverte a lista -}
 reverseList:: [Int]->[Int]
 reverseList [] = []
@@ -62,15 +63,15 @@ reverseInnerLists (x:xs) = reverseList x : reverseInnerLists xs
        myTail que recebe uma lista x e retorna a lista x sem a cabeça
        myLast que recebe uma lista x e retorna o último elemento de x
        myInit que recebe uma lista x e retorna a lista x sem o último elemento
--}       
- 
-head :: [a] -> a
-head [] = error "lista vazia"
-head (x:_) = x
+-}
 
-tail :: [a] -> [a]
-tail (a:b) = b
-tail [] = []
+myhead :: [a] -> a
+myhead [] = error "lista vazia"
+myhead (x:_) = x
+
+mytail :: [a] -> [a]
+mytail (a:b) = b
+mytail [] = []
 
 myLast :: [a] -> Maybe a
 myLast []     = Nothing
@@ -80,10 +81,13 @@ myLast (_:xs) = myLast xs --descarta xs ate ter só x ai entra em Just x!
 myInit :: [a] -> [a]
 myInit [] = []
 myInit [_] = []
-myInit (x:xs) = x : myInit xs  
+myInit (x:xs) = x : myInit xs
 
+meuLength :: [a] -> Int
+meuLength []     = 0                      -- Caso Base
+meuLength (x:xs) = 1 + meuLength xs       -- Passo Recursivo
 
-{- função que gera uma lista de booleanos relativa à comparação entre os elementos e um parâmetro z -} 
+{- função que gera uma lista de booleanos relativa à comparação entre os elementos e um parâmetro z -}
 gBool :: [Int]->Int-> [Bool]
 gBool [] _ = []
 gBool (a:x) z = (a>z):gBool x z
@@ -92,4 +96,3 @@ gBool (a:x) z = (a>z):gBool x z
 reverte :: [a] -> [a]
 reverte   []  = []
 reverte (b:x) = reverte x ++ [b]
-     
