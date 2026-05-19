@@ -1,4 +1,5 @@
 {- HLINT ignore "Use foldr" -}
+{- HLINT ignore "Redundant bracket" -}
 import Data.Char
 import Distribution.Simple.Utils (chattyTry)
 import GHC.IO.Device (IODevice(dup))
@@ -222,3 +223,19 @@ converte (x:xs) = chr (x + 64) : converte xs
 -}
 
 -- 26 
+conta :: [Char] -> Char -> Int
+conta [] _ = 0
+conta (a:as) x   
+    |(a == x) = 1 + conta as x
+    |otherwise = conta as x 
+
+-- 27 
+pertence :: Int -> [Int] -> Bool
+pertence _ [] = False
+pertence x (y:ys) = x == y || pertence x ys
+
+purifica:: [Int] -> [Int]
+purifica [] = []
+purifica (x:xs)
+    | pertence x xs = purifica xs
+    | otherwise = x:purifica xs
