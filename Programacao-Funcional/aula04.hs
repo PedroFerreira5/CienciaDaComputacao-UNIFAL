@@ -21,16 +21,38 @@ myZip _ _ = []
 
 {- 04 função que recebe [Char] e retorna [(Bool,Char)] 
    True se Char for alfanumérico e False, caso contrário -}
---setAlfa::String -> [(Bool,Char)] 
+setAlfa::String -> [(Bool,Char)] 
+setAlfa [] = []
+setAlfa (a:b) = (((ord a) >= (ord '0')) && ((ord a) <= (ord '9')),a) : setAlfa b
 
-   
 {- 05 função que recebe [(Bool, Char)] e filtra alfanuméricos -}
---filtraAlfa:: [(Bool,Char)] -> String
+filtraAlfa:: [(Bool,Char)] -> String
+filtraAlfa [] = []
+filtraAlfa (a:b)
+    | fst a = snd a : filtraAlfa b
+    | otherwise = filtraAlfa b 
 
-{- 06 função transforma String de alfa em Int -}
---alfaToInt::String -> [Int]
+{- 06 função transforma String de alfa em Lista de Int -}
+alfaToInt::String -> [Int]
+alfaToInt [] = []
+alfaToInt a = (ord (head a) - (ord '0')) : alfaToInt (tail a)
 
+{- 06b função transforma String de alfa em Int -}
+alfaToIntB::String -> Int
+alfaToIntB [a] = ord a - ord '0'
+alfaToIntB a = (auxAlfaIntB 1 (inverteLista (alfaToInt a)))
+
+auxAlfaIntB::Int -> [Int] -> Int
+auxAlfaIntB x [a] = x*a
+auxAlfaIntB x a = (x * (head a) + (auxAlfaIntB (10 * x) (tail a)))
+
+inverteLista:: [k] -> [k]
+inverteLista [] = []
+inverteLista (a:b) = inverteLista b ++ [a]
 
 {-- 07 função que gera tabela ascii -}
---geraASCII::Int->[(Int,Char)]
-
+geraASCII::Int->[(Int,Char)]
+geraASCII 0 = [(0, chr 0)]
+geraASCII x
+    | x > 0 && x <= 127 = geraASCII (x-1) ++ [(x, chr x)]
+    |otherwise = []
