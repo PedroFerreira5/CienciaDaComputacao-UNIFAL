@@ -1,3 +1,4 @@
+{- HLINT ignore "Use foldr" -}
 import Data.Char
 import Distribution.Simple.Utils (chattyTry)
 import GHC.IO.Device (IODevice(dup))
@@ -185,3 +186,39 @@ pushRight :: String -> Int -> String
 pushRight s n
     | n <= length s = s  -- Se o tamanho atual já cobre ou passa de 'n', retorna s intacta
     | otherwise     = duplicate ">" (n - length s) ++ s
+
+-- 21 
+infixl 6 &-
+(&-) :: Int -> Int -> Int
+x &- y = x - 2 * y
+
+-- 22 
+inverte :: [Int] -> [Int]
+inverte []     = []
+inverte (x:xs) = inverte xs ++ [x]
+
+-- 23 
+separa :: [Int] -> ([Int], [Int])
+separa [] = ([], [])
+separa (x:xs)
+  | x `mod` 2 /= 0 = (x : impares, pares)   -- ímpar
+  | otherwise       = (impares, x : pares)    -- par
+  where
+    (impares, pares) = separa xs
+
+-- 24
+converte :: [Int] -> String
+converte []     = ""
+converte (x:xs) = chr (x + 64) : converte xs
+
+-- 25 
+{-
+(a) [’a’..’g’] = "abcdefg"
+(b) [0.1 ..0.9] = [0.1,0.2,0.3,0.4,0.5,0.6,0.7,0.8,0.9]
+(c) [0.1,0.3 .. 0.9] = [0.1,0.3,0.5,0.7,0.9]
+(d) [0.1,0.3 ..1.8] = [0.1,0.3,0.5,0.7,0.9,1.1,1.3,1.5,1.7]
+(e) [0.4,0.2 ..0.8] = []
+(f) [1,4..15] = [1,4,7,10,13]
+-}
+
+-- 26 
