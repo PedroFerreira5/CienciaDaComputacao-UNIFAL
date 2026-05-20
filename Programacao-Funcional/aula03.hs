@@ -49,7 +49,6 @@ insereOrdenado x (y:ys)
    | otherwise = y : insereOrdenado x ys
 
 
-
 -------------------------------------------------------------------------
 {- 04 função que ordena [[Int]] pelo primeiro Int de cada lista  -}
 ordenaListaLista::[[Int]]->[[Int]]

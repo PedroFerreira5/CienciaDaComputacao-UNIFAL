@@ -64,10 +64,26 @@ diaVenda01 dia v
   
 {- implemente uma função que retorne a quantidade de vendas do período -}
 
+-- soma simples (recursiva)
+somaVendas :: Periodo -> Venda
+somaVendas 0 = 0
+somaVendas x = f x + somaVendas (x-1)
 
-
+-- binding de exemplo
+totalVendas :: Venda
+totalVendas = somaVendas periodo
 
 {- implemente uma função que retorne a média de vendas-}   
+
+-- média de vendas (retorna Float)
+mediaVendasInt :: Periodo -> Venda
+mediaVendasInt 0 = 0
+mediaVendasInt p = somaVendas p `div` p
+
+-- bindings de exemplo
+mediaSemana :: Int
+mediaSemana = mediaVendasInt periodo
+
 
 {-Exercício - inclua em suas funções um contador para informar quantos testes
   a função executa. Isso é o mesmo que comprovar a complexidade

@@ -14,11 +14,9 @@ sumList [] = 0
 sumList (x:xs) = x + sumList xs
 
 {- 02-localiza elemento em lista -}
-searchList :: Int -> [Int] -> Bool -- Parametros 1º procurado, depois a lista
-searchList _ [] = False
-searchList y (x:xs)
-  | x /= y    = searchList y xs
-  | otherwise = True
+searchList :: Int -> [Int] -> Bool
+searchList _ []       = False
+searchList y (x:xs)   = x == y || searchList y xs
 
 {-03 remove todas ocorrências de y em uma lista -}
 deleteList::Int->[Int]->[Int]
