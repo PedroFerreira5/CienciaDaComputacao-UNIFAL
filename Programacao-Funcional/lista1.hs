@@ -202,10 +202,14 @@ inverte (x:xs) = inverte xs ++ [x]
 separa :: [Int] -> ([Int], [Int])
 separa [] = ([], [])
 separa (x:xs)
-  | x `mod` 2 /= 0 = (x : impares, pares)   -- ímpar
-  | otherwise       = (impares, x : pares)    -- par
-  where
-    (impares, pares) = separa xs
+  | x `mod` 2 == 0 = separaPar x (separa xs)
+  | otherwise      = separaImpar x (separa xs)
+
+separaPar :: Int -> ([Int], [Int]) -> ([Int], [Int])
+separaPar x (impares, pares) = (impares, x : pares)
+
+separaImpar :: Int -> ([Int], [Int]) -> ([Int], [Int])
+separaImpar x (impares, pares) = (x : impares, pares)
 
 -- 24
 converte :: [Int] -> String
@@ -239,3 +243,35 @@ purifica [] = []
 purifica (x:xs)
     | pertence x xs = purifica xs
     | otherwise = x:purifica xs
+
+-- 28
+addNaLista :: a -> Int -> [a]
+addNaLista _ 0 = []
+addNaLista x y = x : addNaLista x (y-1)
+
+proliferaInt :: [Int] -> [Int]
+proliferaInt [] = []
+proliferaInt (x:xs) = addNaLista x x ++ proliferaInt xs
+
+-- 29
+proliferaChar :: [Char] -> [Char]
+proliferaChar [] = []
+proliferaChar (x:xs)
+  | 'A' <= x && x <= 'Z' = addNaLista x (ord x - 64) ++ proliferaChar xs
+  | 'a' <= x && x <= 'z' = addNaLista x (ord x - 96) ++ proliferaChar xs
+
+-- 30
+myToLower :: Char -> Char
+myToLower x
+  | 'A' <= x && x <= 'Z' = chr (ord x + 32)
+  | 'a' <= x && x <= 'z' = x
+
+mytoUpper :: Char -> Char
+mytoUpper x
+  | 'a' <= x && x <= 'z' = chr (ord x - 32)
+  | 'A' <= x && x <= 'Z' = x
+
+converteChar :: Char -> (Char, Char, Int)
+converteChar x = (myToLower x, myToUpper x, ord x)
+
+-- 31 
