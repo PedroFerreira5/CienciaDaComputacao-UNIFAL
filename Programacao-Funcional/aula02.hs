@@ -95,4 +95,4 @@ gBool (a:x) z = (a>z):gBool x z
 {- função que reverte uma lista -}
 reverte :: [a] -> [a]
 reverte   []  = []
-reverte (b:x) = reverte x ++ [b]
+reverte (x:y) = reverte y ++ [x]
