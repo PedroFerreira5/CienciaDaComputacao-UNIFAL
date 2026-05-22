@@ -50,7 +50,7 @@ f4 ((False,s):xs) = (fst (f4 xs), s : snd (f4 xs))
 Aplica `f3` a cada `String` da primeira componente de um par
 e retorna a lista resultante. A segunda componente é ignorada.
 
-f5 (["az34","b1"], ["fodase", "naoimporta"]) = ["z4","b"]`. -}
+f5 (["az34","b1"], ["fodase", "naoimporta"]) = ["z4","b"] -}
 f5 :: ([String], [String]) -> [String]
 f5 ([], _) = []
 f5 (s:ss, ys) = f3 s : f5 (ss, ys)
