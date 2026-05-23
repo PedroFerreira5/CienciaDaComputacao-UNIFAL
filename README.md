@@ -33,6 +33,8 @@ Ao longo do curso são utilizadas diferentes linguagens, incluindo:
 * C
 * C++
 * Java
+* Haskell
+* Prolog
 
 
 ---
