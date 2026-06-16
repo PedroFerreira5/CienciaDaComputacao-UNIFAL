@@ -1,7 +1,9 @@
 {-Objetivo da aula 
   exercícios e introdução à List Comprehension-}
+{-# OPTIONS_GHC -Wno-overlapping-patterns #-}
 
 import Data.Char
+import Distribution.Simple.Program.HcPkg (list)
 
 -- List comprehension---------------------------------------
 
@@ -11,7 +13,7 @@ f1    z l = [a*z | a<-l, a `mod` 2==0]
 
 {-dado um booleano, decide por multiplicar todos elementos por 2 ou somar todos elementos com 5 -}
 f2 :: Bool -> [Int] -> [Int]
-f2     b  l 
+f2     b  l
   | b           = [ a*2 |a <-l]
   | otherwise   = [ a+5 |a <-l]
 
@@ -19,12 +21,12 @@ f2     b  l
 f0 ::[t]->[u]->[(t,u)]
 f0    _ []     = []
 f0   [] _      = []
-f0 (a:b) (c:d) = (a,c):f0 b d  
+f0 (a:b) (c:d) = (a,c):f0 b d
 
 {-objetivo da computação dado em sala de aula:
   Filtrar o resultado de produto cartesiano 
-  para gerar o resultado de f0-}  
-{- gera o produto cartesiano entre duas listas -}  
+  para gerar o resultado de f0-}
+{- gera o produto cartesiano entre duas listas -}
 
 f3::[t]->[u]->[(t,u)]
 f3 l m = [(a,b)| a<-l, b<-m]
@@ -32,7 +34,7 @@ f3 l m = [(a,b)| a<-l, b<-m]
 
 {- desfaz a lista de duplas gerada por f3 -}
 f3_aux01 ::[(t,u)]-> ([t],[u])
-f3_aux01 l = ([a|(a,b)<-l],[b|(a,b)<-l] )   
+f3_aux01 l = ([a|(a,b)<-l],[b|(a,b)<-l] )
 
 {-conta as ocorrências repetidas de fst(dupla) 
   da lista gerada por f3 -}
@@ -56,7 +58,7 @@ f3_newListofList   (a:x)   = (f3_newList (fst a) (a:x)):f3_newListofList (f3_new
 
 {- função que gera o filtro no produto cartesiano 
    -------aqui, tem algo a ser ajustado---------}
-   
+
 f3_filtra::Int->[[(u,t)]]->[(u,t)]
 f3_filtra   _   [] = []
 f3_filtra     i (a:b)= busca i a:f3_filtra (i+1) b
@@ -65,7 +67,7 @@ busca::Int->[(u,t)]->(u,t)
 busca i (a:b)
   | i/=0      = busca (i-1) b
   | otherwise = a
-  
+
 --como usar a saída de f3 em uma função que retorne a computação de f0?
 {-solução do Pedro -----}
 
@@ -79,16 +81,30 @@ f3_auxP _ _ _ _ = False
 ------- Revisão -----------------------------------------------------
 
 {-01 função que retorna lista de duplas com char e posição na ASCII -}
-listaDuplaCharInt:: Int-> [(Char,Int)]
-listaDuplaCharInt _ = []
+listaDuplaCharInt :: Int -> [(Char,Int)]
+listaDuplaCharInt x
+  | x < 0     = []
+  | otherwise = [(chr i, i) | i <- [0 .. min x 127]]
 
 {-02 função meuChr que pesquisa um char pelo int na lista gerada -}
+meuChr :: Int -> [(Char,Int)] -> Char
+meuChr _ [] = '?' 
+meuChr n ((c,i):xs)
+  | n == i    = c
+  | otherwise = meuChr n xs
+
 
 {-03 função meuOrd que pesquisa o int pelo char na lista gerada -}
+meuOrd :: Char -> [(Char,Int)] -> Int
+meuOrd _ [] = -1 
+meuOrd n ((c,i):xs)
+  | n == c    = i
+  | otherwise = meuOrd n xs
 
 {-04 função que ordena uma lista de inteiros -}
 ordenaLista::[Int]->[Int]
 ordenaLista [] = []
+
 
 {-05 seja o tipo [(Bool, [Int])]. 
 Faça uma função que ordena [Int] quando o booleano é True. 
