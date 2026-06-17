@@ -5,6 +5,10 @@
    Para tanto, iniciamos com um problema simples e mostramos,
    a cada passo, as possibilidades de melhorias.
    -}
+{- HLINT ignore "Use map" -}
+{- HLINT ignore "Eta reduce" -}
+{- HLINT ignore "Use null" -}
+{- HLINT ignore "Redundant bracket" -}
 import Data.Char
 
 {-motivação-}
@@ -104,6 +108,7 @@ inversor x = not(x)
 {------------------------------------------------}
 
 ------------------  revisão e uso de alta ordem ----------------------------
+
 {- Considere f1 capaz de somar uma lista de inteiros se um Char for alfanumérico, 
     ou multiplicar os elementos, caso contrário -}
 
@@ -117,19 +122,45 @@ f1 c x
 
     
 {- reescreva f1 usando casamento de padrão -}
---f2::Char->[Int]->Int
+f2::Char->[Int]->Int
+f2 c [] 
+  |isDigit c    = 0
+  |otherwise    = 1
+f2 c (a:b)
+  |isDigit c    = a + f2 c b
+  |otherwise    = a * f2 c b
 
 {- reescreva f2 fazendo chamadas de funções para somar ou multiplicar -}
---f3::Char->[Int]-> Int
+soma a b = a + b
+multiplica a b = a * b
+
+f3::Char->[Int]->Int
+f3 c []
+  |isDigit c    = 0
+  |otherwise    = 1
+f3 c (a:b)
+  |isDigit c    = soma a (f3 c b)
+  |otherwise    = multiplica a (f3 c b)
 
 {- reescreva f3 usando função de alta ordem para definir o operador
    Esta função é didática, pois mostra o uso de função de alta ordem
    Neste caso, considere que a lista tem, pelo menos, um elemento -}
  {- para lista de pelo menos um elemento -}
---f4::(Int->Int->Int)->[Int]->Int
+
+f4::(Int->Int->Int)->[Int]->Int
+f4 op [a] = a
+f4 op (a:b) = op a (f4 op b)
+
 
 {- faça a função myMap aplica uma função a cada elemento de uma lista -}
+myMap::(a->b)->[a]->[b]
+myMap f [] = []
+myMap f (a:b) = f a : myMap f b
+
 
 {- função que converte caixa baixa para caixa  alta
    usar a função myMap para aplicar a uma String -}
+
+toUpperString::String->String
+toUpperString s = myMap toUpper s
    
