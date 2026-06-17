@@ -9,6 +9,8 @@
 {- HLINT ignore "Eta reduce" -}
 {- HLINT ignore "Use null" -}
 {- HLINT ignore "Redundant bracket" -}
+{- HLINT ignore "Use camelCase" -}
+{- HLINT ignore "Use foldr" -}
 import Data.Char
 
 {-motivação-}
@@ -33,7 +35,7 @@ filtraAO f [] = []
 filtraAO f (a:b)
   |f a       = a:filtraAO f b
   |otherwise =   filtraAO f b
-	
+  
 {- reescrevendo com uso de list comprehension -}
 filtraAO_LC::(Char->Bool)->String->String
 filtraAO_LC f s = [a| a<-s, f a]
