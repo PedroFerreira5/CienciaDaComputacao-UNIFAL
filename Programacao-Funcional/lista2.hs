@@ -1,9 +1,13 @@
 {- HLINT ignore "Use foldr" -}
 {- HLINT ignore "Redundant list comprehension" -}
 {-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+{- HLINT ignore "Move map inside list comprehension" -}
+{- HLINT ignore "Use even" -}
+{- HLINT ignore "Use map" -}
 import Prelude
 import Data.Char
 import Distribution.Compat.Lens (_1)
+import System.Win32 (xBUTTON1)
 
 -- 1
 soma :: [Int] -> Int
@@ -75,3 +79,34 @@ myLength [] = 0
 myLength (a:as) = 1 + myLength as 
 
 -- 11
+--           parada(p)      h11(h)      (*2)(t)   1(x)  = lista de pot^2 ate 2^10
+myunfold :: (t -> Bool) -> (t -> a) -> (t -> t) -> t -> [a]
+myunfold p h t x
+    | p x = []
+    | otherwise = h x : myunfold p h t (t x)
+
+parada :: Int -> Bool
+parada x = x > 1024
+
+h11 :: Int -> Int
+h11 x = x
+
+potencias2 :: [Int]
+potencias2 = myunfold parada h11 (*2) 1
+
+-- 12 
+evenCubes :: Int -> [Int]
+evenCubes n = mycubo [y | y <- [1..n-1], y `mod` 2 == 0]
+
+mycubo :: [Int] -> [Int]
+mycubo [] = []
+mycubo (a:as) = a^3 : mycubo as
+
+evenCubes2 :: Int -> [Int]
+evenCubes2 n = map (^3) [y | y <- [1..n-1], y `mod` 2 == 0]
+
+-- 13
+insertOrd :: Int -> [Int] -> [Int]
+insertOrd n xs = [x | x <- xs, x < n] ++ [n] ++ [x | x <- xs, x >= n]
+
+-- 14
