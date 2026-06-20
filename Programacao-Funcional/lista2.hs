@@ -1,13 +1,15 @@
 {- HLINT ignore "Use foldr" -}
 {- HLINT ignore "Redundant list comprehension" -}
 {-# OPTIONS_GHC -Wno-overlapping-patterns #-}
+{- HLINT ignore "Avoid lambda" -}
+{- HLINT ignore "Use concat" -}
 {- HLINT ignore "Move map inside list comprehension" -}
 {- HLINT ignore "Use even" -}
 {- HLINT ignore "Use map" -}
 import Prelude
 import Data.Char
 import Distribution.Compat.Lens (_1)
-import System.Win32 (xBUTTON1)
+import System.Win32 (xBUTTON1, UnicodeSubsetBitfield)
 
 -- 1
 soma :: [Int] -> Int
@@ -110,3 +112,37 @@ insertOrd :: Int -> [Int] -> [Int]
 insertOrd n xs = [x | x <- xs, x < n] ++ [n] ++ [x | x <- xs, x >= n]
 
 -- 14
+-- howManyMultiples 4 1 10 = 2
+howManyMultiples :: Int -> Int -> Int -> Int
+howManyMultiples x min max
+  | x == 0    = 0
+  | otherwise  = myLength [y | y <- [min..max], y `mod` x == 0] -- myLength conta como alta ordem??
+
+
+-- 15
+duplicate :: String -> Int -> String
+duplicate s n
+    | n <= 0 = "."
+    | otherwise = foldr (++) "  " [s | _ <- [1..n]]
+
+myfoldR :: (t -> u -> u) -> u -> [t] -> u 
+myfoldR f s [] = s 
+myfoldR f s (a:as) = f a (myfoldR f s as)
+
+myfoldL :: (u -> t -> u) -> u -> [t] -> u 
+myfoldL f s [] = s 
+myfoldL f s (a:as) = myfoldL f (f s a) as 
+
+-- 16
+-- pushRight "abc" 5 = ">>abc"
+pushRight :: String -> Int -> String
+pushRight s n
+    | n <= myLength s = s
+    | otherwise = ['>' | _ <- [1..(n - myLength s)]] ++ s   
+
+-- 17
+-- inverte [1,2,3,4,5,6,150] = [150,6,5,4,3,2,1]
+inverte :: [Int] -> [Int]
+inverte xs = [x | x <- foldl (\acc y -> y : acc) [] xs]
+
+-- 18 
