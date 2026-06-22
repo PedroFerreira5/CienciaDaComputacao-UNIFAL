@@ -10,6 +10,7 @@ import Prelude
 import Data.Char
 import Distribution.Compat.Lens (_1)
 import System.Win32 (xBUTTON1, UnicodeSubsetBitfield)
+import Language.Haskell.TH.PprLib (sep)
 
 -- 1
 soma :: [Int] -> Int
@@ -114,11 +115,12 @@ insertOrd n xs = [x | x <- xs, x < n] ++ [n] ++ [x | x <- xs, x >= n]
 -- 14
 -- howManyMultiples 4 1 10 = 2
 howManyMultiples :: Int -> Int -> Int -> Int
-howManyMultiples x min max
-  | x == 0    = 0
-  | otherwise  = myLength [y | y <- [min..max], y `mod` x == 0] -- myLength conta como alta ordem??
+howManyMultiples x min max = myLength (filter (isMultiple x) [y | y <- [min..max]]) -- filter (a -> Bool) -> [a] - [a] /// pode usar isMultiple pois "fixamos" x ai fica (a -> Bool)
 
+isMultiple :: Int -> Int -> Bool
+isMultiple x y = y `mod` x == 0
 
+--------------------------------------------------
 -- 15
 duplicate :: String -> Int -> String
 duplicate s n
@@ -145,4 +147,60 @@ pushRight s n
 inverte :: [Int] -> [Int]
 inverte xs = [x | x <- foldl (\acc y -> y : acc) [] xs]
 
--- 18 
+-- 18
+-- Main> separa [1,4,3,4,6,7,9,10] = ([1,3,7,9],[4,4,6,10])
+separa :: [Int] -> ([Int], [Int])
+separa as = ([ x | x <- as, x `mod` 2 == 1] , [ y | y <- as, y `mod` 2 == 0])
+
+-- 19 
+--Main> converte [1,2,6,1,9] = "ABFAI"
+--Main> converte [ ] = "".
+converte :: [Int] -> String
+converte as = [ chr (x + 64) | x <- as ] -- chr 1 + 64 = A... e por ai vai
+
+-- 20
+-- Main> conta "ABCAABCDDA" "B" = 2
+conta :: String -> Char -> Int 
+conta as x = soma [ 1 | y <- as, y == x]
+
+-- Main> proliferaInt [3,0,2,4,0,1] = [3,3,3,2,2,4,4,4,4,1]
+proliferaInt :: [Int] -> [Int]
+proliferaInt as = [ y | x <- as, y <- myreplicate x x]
+
+-- 21
+-- Main> proliferaChar [C,B,D] = "CCCBBDDDD"
+proliferaChar :: String -> String
+proliferaChar as = [ y | x <- as, y <- myreplicate2 alfabeto x]
+
+alfabeto :: Char -> Int
+alfabeto x = ord x - 64 
+
+myreplicate2 :: (a -> Int) -> a -> [a]
+myreplicate2 n x = [ x | _ <- [1..n x]]
+
+--------------------------------- OUTRA OPÇÃO
+
+proliferaChar2 :: String -> String
+proliferaChar2 as = [ x | x <- as, _ <- [1 .. ord x - 64] ]
+
+-- 22 
+procuraElemento :: Int-> [Int]-> Bool
+procuraElemento n (x:xs) = n == x || procuraElemento n xs
+
+procuraElemento2 :: Int-> [Int]-> Bool
+procuraElemento2 n (x:xs) = procuraElemento n xs || n == x
+
+-- a) As duas estão erradas pois nao tem caso base, se nao tem n na [] da erro.
+-- b) A primeira seria mais eficaz pois se n == x já da True e acaba o teste.
+
+-- 23
+checkEqual :: Eq a => a-> [a]-> Bool
+checkEqual _ [] = True
+checkEqual y (z:zs) = (y == z) && checkEqual y zs
+
+allEqual :: Eq a => [a]-> Bool
+allEqual [] = True
+allEqual (x:xs) = checkEqual x xs
+
+-- a) Ambas precisam de Eq para garantir que elementos comparados sejam comparaveis entre si! Sem da erro de compilação
+-- b) Se fosse removida, o código não compilaria, pois a classe Eq é obrigatória para permitir que os elementos da lista sejam comparados entre si.
