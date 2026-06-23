@@ -106,12 +106,15 @@ ordenaLista::[Int]->[Int]
 ordenaLista [] = []
 
 
-{-05 seja o tipo [(Bool, [Int])]. 
+{--05 seja o tipo [(Bool, [Int])]. 
 Faça uma função que ordena [Int] quando o booleano é True. 
 Também, passe o Bool para False, quando ordenar [Int]
 exemplo: ordenaListaDupla [(True,[3,4,1,0,9]),(False,[]),(True,[4,3,2,1,0])]
-retorna:                  [(False,[0,1,3,4,9]),(False,[]),(False,[0,1,2,3,4])]
--}
+rtorna:                  [(False,[0,1,3,4,9]),(False,[]),(False,[0,1,2,3,4])]
+--}
+
+
+
 
 ordenaListaDupla::[(Bool, [Int])]->[(Bool, [Int])]
 ordenaListaDupla [] = []

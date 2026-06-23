@@ -27,6 +27,9 @@ op_c f x y = (f) x y
 op_d ::(Int->Int)-> Int-> Int
 op_d f y = f y
 
+op_e :: (Int) -> Int
+op_e f = f  
+
 {-escreva função de alta ordem para filtrar digito ou alpha -
   neste caso, o f pode ser isDigit ou isAlpha-}
 
@@ -40,7 +43,7 @@ filtraAO f (a:b)
 filtraAO_LC::(Char->Bool)->String->String
 filtraAO_LC f s = [a| a<-s, f a]
 
-{-As funções f1_p1 e f2_p2, a seguir, são específicas. A partir
+{-- As funções f1_p1 e f2_p2, a seguir, são específicas. A partir
 de uma [String], elas geram [(Bool, String)] separando as strings
 que só possuem dígitos das demais --}
 
