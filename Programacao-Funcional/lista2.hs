@@ -12,19 +12,19 @@ import Distribution.Compat.Lens (_1)
 import System.Win32 (xBUTTON1, UnicodeSubsetBitfield)
 import Language.Haskell.TH.PprLib (sep)
 
--- 1
+-- 1 -- SOMAR TODOS QUADRADOS DE 1..100
 soma :: [Int] -> Int
 soma [] = 0
 soma (x:xs) = x + soma xs
 
-somaquadrados :: Int
+somaquadrados :: Int 
 somaquadrados = soma [ x^2 | x <- [1..100]]
 
--- 2
+-- 2 REPLICAR ALGO X n vezes
 myreplicate :: Int -> a -> [a]
 myreplicate n x = [ x | _ <- [1..n]]
 
--- 3
+-- 3 SAIR TODAS COMBINAÇOES POSSIVEIS DE X^2 + Y^2 = Z^2
 mypyths :: Int-> [(Int, Int, Int)] 
 mypyths n = [ (x, y, z) | x <- [1..n], y <- [1..n], z <- [1..n], x^2 + y^2 == z^2 ]
 
@@ -40,23 +40,19 @@ myperfects n = [ x | x <- [1..n], soma (divisores x) == x]
 pairsConcat :: [(Int, Int)]
 pairsConcat = concat [ [(x,y) | y <- [4,5,6]] | x <- [1,2,3]]
 
--- 6
+-- 6 -- encontra todas posiçoes de X em XS
 positions :: Eq a => a-> [a]-> [Int]
 positions x xs = find x (zip xs [0..n])
     where n = (length xs)- 1
 
 find :: Eq a => a -> [(a, Int)] -> [Int]
-find x zip = [i | (a, i) <- zip, a == x]
+find x pairs = [i | (a, i) <- pairs, a == x]
 
 -- 7 
 scalarproduct :: [Int]-> [Int]-> Int
 scalarproduct [] [] = 0
-scalarproduct as bs = soma [ a*b | (a,b) <- myZip as bs ] -- (produto cartesiano) [ (a,b) | a <- as, b <- bs ] todos com todos
+scalarproduct as bs = soma [ a*b | (a,b) <- zip as bs ] -- (produto cartesiano) [ (a,b) | a <- as, b <- bs ] todos com todos
                                                        -- posição com posição [ a*b | (a,b) <- zip as bs ] 
-
-myZip :: [a] -> [b] -> [(a,b)]
-myZip (x:xs) (y:ys) = (x,y) : myZip xs ys
-myZip _ _ = []
 
 -- 8 
 infixr 8 &!

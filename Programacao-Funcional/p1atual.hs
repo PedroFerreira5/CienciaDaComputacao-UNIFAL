@@ -45,6 +45,9 @@ f4 [] = ([], [])
 f4 ((True,s):xs)  = (s : fst (f4 xs), snd (f4 xs))
 f4 ((False,s):xs) = (fst (f4 xs), s : snd (f4 xs))
 
+f4b :: [(Bool, String)] -> ([String], [String])
+f4b lista = ([ s | (True, s)  <- lista ], [ s | (False, s) <- lista])
+
 
 {- 
 Aplica `f3` a cada `String` da primeira componente de um par
@@ -55,5 +58,6 @@ f5 :: ([String], [String]) -> [String]
 f5 ([], _) = []
 f5 (s:ss, ys) = f3 s : f5 (ss, ys)
 
-
+f5b :: ([String], [String]) -> [String]
+f5b (xs, _) = [ f3 s | s <- xs ]
 
