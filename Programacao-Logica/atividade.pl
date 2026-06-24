@@ -3,6 +3,7 @@
 % lsort/2  -> ordena pelo TAMANHO das sublistas
 % lfsort/2 -> ordena pela FREQUENCIA do tamanho
 %
+% Pedro Ferreira Prado - 2025.1.08.028
 % ============================================
 
 tamanho([], 0).
