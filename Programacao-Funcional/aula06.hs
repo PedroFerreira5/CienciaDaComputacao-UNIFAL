@@ -9,7 +9,7 @@ import Distribution.Simple.Program.HcPkg (list)
 
 {-multiplica todos elementos pares da lista pela escalar -}
 f1 :: Int -> [Int] -> [Int]
-f1    z l = [a*z | a<-l, a `mod` 2==0]
+f1    z l = [a*z | a<-l, a `mod` 2 ==0]
 
 {-dado um booleano, decide por multiplicar todos elementos por 2 ou somar todos elementos com 5 -}
 f2 :: Bool -> [Int] -> [Int]

@@ -46,7 +46,7 @@ positions x xs = find x (zip xs [0..n])
     where n = (length xs)- 1
 
 find :: Eq a => a -> [(a, Int)] -> [Int]
-find x pairs = [i | (a, i) <- pairs, a == x]
+find x zip = [i | (a, i) <- zip, a == x]
 
 -- 7 
 scalarproduct :: [Int]-> [Int]-> Int
