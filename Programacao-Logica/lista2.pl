@@ -88,3 +88,34 @@ merge([H1|T1], [H2|T2], [H1|Result]) :-
 % Se o topo da segunda lista (H2) for menor que o da primeira (H1)
 merge([H1|T1], [H2|T2], [H2|Result]) :-
     merge([H1|T1], T2, Result).
+
+% - 11 Resposta = O cut deve ser colocado após a condição de teste
+max(X, Y, X) :- X > Y, !.
+max(X, Y, Y) :- X =< Y.
+
+% - 14
+transforma('encher o jarro 1', [X, Y], [3, Y]) :- X < 3.
+transforma('encher o jarro 2', [X, Y], [X, 4]) :- Y < 4.
+
+% 2. Esvaziar os jarros
+transforma('esvaziar o jarro 1', [X, Y], [0, Y]) :- X > 0.
+transforma('esvaziar o jarro 2', [X, Y], [X, 0]) :- Y > 0.
+
+% 3. Transferir até ESVAZIAR o jarro de origem (tudo cabe no destino)
+transforma('transferir do jarro 1 para o 2', [X, Y], [0, N_Y]) :- 
+    X > 0, Y < 4,
+    N_Y is X + Y, N_Y =< 4.
+
+transforma('transferir do jarro 2 para o 1', [X, Y], [N_X, 0]) :- 
+    Y > 0, X < 3,
+    N_X is X + Y, N_X =< 3.
+
+% 4. Transferir onde AINDA RESTARÁ água no jarro de origem (o destino enche até o topo)
+transforma('transferir do jarro 1 para o 2', [X, Y], [N_X, 4]) :- 
+    X > 0, Y < 4,
+    N_X is X - (4 - Y), N_X >= 0.
+
+transforma('transferir do jarro 2 para o 1', [X, Y], [3, N_Y]) :- 
+    Y > 0, X < 3,
+    N_Y is Y - (3 - X), N_Y >= 0.
+
