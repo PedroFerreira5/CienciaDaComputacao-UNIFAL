@@ -58,3 +58,33 @@ meu_reverse_aux([X|Xs], Acc, Resultado) :-
 % - 7
 metIguais(Lista) :-
     append(X, X, Lista).
+
+% - 8 
+insOrd(X, [H|T], [X, H|T]) :- X =< H, !.
+
+insOrd(X, [], [X]).
+insOrd(X, [H|T], [H|Resultado]) :- insOrd(X, T, Resultado).
+
+% - 9
+particiona([], [], []).
+
+particiona([X], [X], []). % Impar
+
+% Caso Recursivo: Tira dois elementos (X e Y) da lista original.
+% Coloca X na primeira lista, Y na segunda lista e continua para o resto (T).
+particiona([X, Y | T], [X | L1], [Y | L2]) :- 
+    particiona(T, L1, L2).
+
+% - 10
+% Casos Base: Se uma das listas estiver vazia, o resultado é a outra lista.
+merge([], Lista2, Lista2).
+merge(Lista1, [], Lista1).
+
+% Se o topo da primeira lista (H1) for menor ou igual ao topo da segunda (H2)
+merge([H1|T1], [H2|T2], [H1|Result]) :-
+    H1 =< H2, !,
+    merge(T1, [H2|T2], Result).
+
+% Se o topo da segunda lista (H2) for menor que o da primeira (H1)
+merge([H1|T1], [H2|T2], [H2|Result]) :-
+    merge([H1|T1], T2, Result).
