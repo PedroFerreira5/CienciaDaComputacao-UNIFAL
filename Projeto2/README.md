@@ -1,74 +1,103 @@
-===============================================================================
+# Manipulador de Imagens PGM
 
-Alunos: Guilherme de Oliveira Aredes - 2025.1.08.026
-        Pedro Ferreira Prado - 2025.1.08.028
-Projeto: Sistema de Manipulação de Imagens PGM
+Projeto acadêmico em C++ para manipulação de imagens no formato **PGM (Portable Gray Map)**, utilizando **ponteiros** para percorrer e transformar matrizes de pixels carregadas a partir de arquivos-texto.
 
-Objetivo: Adquirir conhecimentos de manipulação de matrizes (imagens) com
-ponteiros, implementando funcionalidades que geram novas matrizes
-(imagens) a partir de valores carregados de arquivos-texto em
-formato PGM de representação de imagens.
+## 👥 Autores
 
-Descrição do projeto:
-Este aplicativo foi desenvolvido para manipular imagens em formato PGM
-(Portable Graymap). Ele permite ao usuário carregar uma imagem de entrada,
-realizar diversas operações sobre ela e salvar o resultado de cada
-operação em um novo arquivo PGM. O programa gerencia a imagem como uma
-matriz de pixels, utilizando ponteiros para manipulação eficiente dos dados.
-===============================================================================
-Formato do arquivo de Imagem PGM (Portable Graymap):
+- Guilherme de Oliveira Aredes 
+- Pedro Ferreira Prado 
 
-O programa espera arquivos de imagem no formato PGM (P2), seguindo a
-estrutura abaixo:
+**Data:** 20/02/2025
 
-1ª linha: string "P2" (identificador do formato).
-2ª linha: quantidade de colunas (largura) em inteiro, seguida de um espaço,
-          e seguida de quantidade de linhas (altura) em inteiro.
-3ª linha: o valor máximo de tons de cinza em inteiros (ex: 255).
-Da 4ª linha em diante: valores inteiros de todos os pixels da imagem,
-                       variando entre zero e o valor máximo de tons de
-                       cinza da 3ª linha, separados por espaços.
+## 🎯 Objetivo
 
-Observação: O programa ignorará todas as linhas que começam com '#'.
+Adquirir conhecimentos de manipulação de matrizes (imagens) com ponteiros, implementando funcionalidades que geram novas matrizes (imagens) a partir de valores carregados de arquivos-texto em formato PGM.
 
-===============================================================================
-Requisitos e Funcionalidades:
+## 🖼️ Sobre o formato PGM
 
-O aplicativo deverá:
-- Ler uma imagem de entrada criada pelos autores em formato PGM.
-- Apresentar um menu de operações que serão realizadas sobre a imagem
-  de entrada indicada.
-- Cada operação deve ser implementada em uma função C/C++ separada.
-- Os comandos `cin` e `cout` (entrada e saída padrão) só podem ser
-  utilizados na função `main`.
-- Escrever um arquivo-texto de saída para cada operação realizada,
-  mantendo o formato PGM.
-- Para todas as operações, os valores de tons de cinza dos pixels
-  resultantes devem estar entre zero e o valor máximo especificado na
-  imagem original.
-===============================================================================
-Operações Implementadas:
-1.  **Escurecer ou Clarear Imagem:** Ajusta os tons de cinza da imagem
-    por um fator informado pelo usuário.
-2.  **Rotacionar Imagem:** Permite rotacionar a imagem para a esquerda,
-    para a direita, em torno da linha horizontal e em torno da linha
-    vertical.
-3.  **Imagem Negativa:** Inverte os tons de cinza da imagem, criando um
-    efeito de negativo fotográfico.
-4.  **Binarizar Imagem:** Converte a imagem em preto e branco com base
-    em um limiar informado pelo usuário. Pixels com valores menores que
-    o limiar se tornam zero (preto), e valores maiores se tornam o valor
-    máximo (branco).
-5.  **Iconizar Imagem:** Reduz a imagem de entrada para uma nova imagem
-    de 64 x 64 pixels.
-===============================================================================
-Instruções de Uso:
+O programa trabalha com o formato **PGM ASCII (P2)**, que representa imagens em tons de cinza como texto puro. A estrutura do arquivo é:
 
-- Execute o programa e utilize o menu de opções para selecionar a operação
-  desejada.
-- A primeira opção do menu será para carregar a imagem de entrada em
-  formato PGM.
-- Para cada operação realizada, um novo arquivo-texto PGM será gerado
-  com o resultado, em um nome diferente do arquivo de entrada.
+```
+P2
+<colunas> <linhas>
+<valor máximo de cinza>
+<pixel 1> <pixel 2> <pixel 3> ...
+```
 
-===============================================================================
+> ⚠️ A leitura atual (`lerImagem`) não trata linhas de comentário iniciadas com `#`, portanto os arquivos de entrada não devem conter esse tipo de linha.
+
+## ⚙️ Funcionalidades
+
+O programa oferece um menu interativo com as seguintes opções:
+
+| Opção | Funcionalidade | Descrição |
+|-------|-----------------|-----------|
+| 1 | Ler imagem PGM | Carrega uma imagem a partir de um arquivo `.pgm` (formato P2) |
+| 2 | Clarear imagem | Aumenta o valor dos pixels por um fator informado (limitado ao valor máximo) |
+| 3 | Escurecer imagem | Diminui o valor dos pixels por um fator informado (limitado a 0) |
+| 4 | Rotacionar para direita | Gira a imagem 90° no sentido horário |
+| 5 | Rotacionar para esquerda | Gira a imagem 90° no sentido anti-horário |
+| 6 | Negativa da imagem | Inverte os tons (calcula `maxValor - pixel`) |
+| 7 | Binarizar imagem | Converte a imagem para preto e branco com base em um limiar |
+| 8 | Iconizar imagem | Reduz a imagem para um ícone de 64x64 pixels |
+| 0 | Sair | Encerra o programa e libera a memória alocada |
+
+## 🧠 Estrutura do código
+
+- **`lerImagem`** — abre o arquivo, valida o formato P2, lê as dimensões e aloca dinamicamente a matriz de pixels.
+- **`escreverImagem`** — grava a matriz de pixels em disco, respeitando o cabeçalho PGM.
+- **`clarearImagem` / `escurecerImagem`** — percorrem o array via ponteiros, ajustando cada pixel.
+- **`rotacionarDireita` / `rotacionarEsquerda`** — geram uma nova matriz com as dimensões trocadas (linhas ↔ colunas), reposicionando cada pixel.
+- **`negativaImagem`** — inverte os tons da imagem.
+- **`binarizarImagem`** — aplica um limiar, transformando a imagem em preto e branco.
+- **`iconizarImagem`** — reamostra a imagem original para uma versão reduzida de 64x64 pixels.
+
+Todas as funções que alteram a imagem trabalham diretamente com ponteiros (`int*`), percorrendo a matriz de forma linear ou calculando o deslocamento (offset) equivalente às posições de linha/coluna.
+
+## 🛠️ Como compilar
+
+É necessário um compilador C++ compatível com C++11 ou superior (ex: `g++`).
+
+```bash
+g++ -o pgm_editor main.cpp
+```
+
+## ▶️ Como executar
+
+```bash
+./pgm_editor
+```
+
+Ao rodar o programa, o menu será exibido no terminal. Basta digitar o número da opção desejada e seguir as instruções (nome do arquivo de entrada/saída, fatores, limiares, etc).
+
+### Exemplo de uso
+
+```
+=== MENU PGM ===
+1. Ler imagem PGM
+2. Clarear imagem
+3. Escurecer imagem
+4. Rotacionar para direita
+5. Rotacionar para esquerda
+6. Negativa da imagem
+7. Binarizar imagem
+8. Iconizar imagem (64x64)
+0. Sair
+Escolha uma opcao: 1
+Nome do arquivo PGM de entrada: imagem.pgm
+Imagem carregada com sucesso: 256x256 pixels
+```
+
+## ⚠️ Observações
+
+- É necessário carregar uma imagem (opção 1) antes de usar as demais funcionalidades — caso contrário, o programa exibirá uma mensagem de erro.
+- Nas operações de rotação, as dimensões da imagem resultante são invertidas (a largura original vira a altura, e vice-versa).
+- A memória alocada dinamicamente é liberada automaticamente ao final de cada operação de rotação/iconização e ao encerrar o programa.
+- Os arquivos de entrada devem estar em formato PGM P2 puro, sem linhas de comentário (`#`) e sem quebras adicionais no cabeçalho.
+- O programa não impede que o arquivo de saída tenha o mesmo nome do arquivo de entrada — nesse caso, o arquivo original será sobrescrito.
+- As únicas rotações disponíveis são de 90° para a direita e para a esquerda; não há operação de espelhamento (flip) horizontal ou vertical.
+- Mensagens de erro e confirmação (`cout`) são exibidas tanto pela `main` quanto pelas funções de processamento (ex: `lerImagem`, `escurecerImagem`), não ficando restritas apenas à função `main`.
+
+## 📄 Licença
+
+Projeto acadêmico desenvolvido para fins educacionais.
